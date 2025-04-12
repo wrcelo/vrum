@@ -8,12 +8,12 @@ namespace Wrcelo.VrumApp.Domain.Entity
 {
     public class Rental
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public int DeliveryDriverId { get; set; }
+        public Guid DeliveryDriverId { get; set; }
         public DeliveryDriver DeliveryDriver { get; set; }
 
-        public int MotorcycleId { get; set; }
+        public Guid MotorcycleId { get; set; }
         public Motorcycle Motorcycle { get; set; }
 
         public DateTime StartDate { get; set; }
