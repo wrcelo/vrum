@@ -1,40 +1,61 @@
-﻿using Wrcelo.VrumApp.Core.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
+using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
+using Wrcelo.VrumApp.Infra.Data.Context;
 
 namespace Wrcelo.VrumApp.Application.Services
 {
     public class MotorcycleRepository : IMotorcycleRepository
     {
-        public Task<bool> CreateMotorcycle(MotorcycleDTO motorcycleDto)
+        private readonly ApiContext _context;
+        public MotorcycleRepository(ApiContext context)
         {
-            //Trabalhar com entity
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteMotorcycle(int motorcycleId)
+        public async Task CreateMotorcycle(Motorcycle motorcycle)
         {
-            throw new NotImplementedException();
+           _context.Motorcycles.Add(motorcycle);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<bool> EditMotorcycleLicensePlate(int motorcycleId, EditMotorcycleDTO editMotorcycleDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Motorcycle> GetMotorcycleByGuid(int motorcycleId)
+        public Task DeleteMotorcycle(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        Task<Motorcycle> IMotorcycleRepository.GetMotorcycleByLicensePlate(string licensePlate)
+        public async Task EditMotorcycleLicensePlate(Guid id, EditMotorcycleDTO editMotorcycleDTO)
         {
-            throw new NotImplementedException();
+            var motorcycle = await _context.Motorcycles.FirstOrDefaultAsync(m => m.Guid == id);
+
+            if (motorcycle == null)
+                throw new KeyNotFoundException($"Motorcycle with ID {id} not found.");
+
+            motorcycle.UpdateLicensePlate(editMotorcycleDTO.LicensePlate);
+
+            _context.Motorcycles.Update(motorcycle);
+            await _context.SaveChangesAsync();
         }
 
-        Task<IEnumerable<Motorcycle>> IMotorcycleRepository.GetMotorcycles()
+        public async Task<Motorcycle> GetMotorcycleByGuid(Guid id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Motorcycles.FirstAsync(m => m.Guid == id);
+            return result;
+        }
+
+        async Task<Motorcycle> IMotorcycleRepository.GetMotorcycleByLicensePlate(string licensePlate)
+        {
+            var result = await _context.Motorcycles.FirstOrDefaultAsync(m => m.LicensePlate == licensePlate);
+
+            return result;
+        }
+
+        async Task<IEnumerable<Motorcycle>> IMotorcycleRepository.GetMotorcycles()
+        {
+            var result = await _context.Motorcycles.ToListAsync();
+            return result;
         }
     }
 }
