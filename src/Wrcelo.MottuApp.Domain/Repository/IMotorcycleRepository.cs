@@ -5,11 +5,11 @@ namespace Wrcelo.VrumApp.Domain.Repository
 {
     public interface IMotorcycleRepository
     {
-        Task<bool> CreateMotorcycle(MotorcycleDTO motorcycleDto);
+        Task CreateMotorcycle(Motorcycle motorcycle);
         Task<IEnumerable<Motorcycle>> GetMotorcycles();
         Task<Motorcycle> GetMotorcycleByLicensePlate(string licensePlate);
-        Task<bool> EditMotorcycleLicensePlate(int motorcycleId, EditMotorcycleDTO editMotorcycleDTO);
-        Task<Motorcycle> GetMotorcycleByGuid(int motorcycleId);
-        Task DeleteMotorcycle(int motorcycleId);
+        Task EditMotorcycleLicensePlate(Guid id, EditMotorcycleDTO editMotorcycleDTO);
+        Task<Motorcycle> GetMotorcycleByGuid(Guid id);
+        Task DeleteMotorcycle(Guid id);
     }
 }
