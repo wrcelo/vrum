@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.API", "src\Wrcelo.MottuApp.API\Wrcelo.VrumApp.API.csproj", "{E4351CEB-3CCC-402C-9E2A-2149E9B9E975}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.Domain", "src\Wrcelo.MottuApp.Domain\Wrcelo.VrumApp.Domain.csproj", "{FFF7AB01-7910-43A5-9873-E0587ABB08FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.Core", "src\Wrcelo.MottuApp.Core\Wrcelo.VrumApp.Core.csproj", "{E01D7E04-0BA6-49FE-A075-030EF3A594F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.Application", "src\Wrcelo.MottuApp.Application\Wrcelo.VrumApp.Application.csproj", "{6E936F4D-BE3D-4EF2-9DA0-D02D27B7C1A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.Infra.Data", "src\Wrcelo.MottuApp.Infra.Data\Wrcelo.VrumApp.Infra.Data.csproj", "{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4351CEB-3CCC-402C-9E2A-2149E9B9E975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4351CEB-3CCC-402C-9E2A-2149E9B9E975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4351CEB-3CCC-402C-9E2A-2149E9B9E975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4351CEB-3CCC-402C-9E2A-2149E9B9E975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF7AB01-7910-43A5-9873-E0587ABB08FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF7AB01-7910-43A5-9873-E0587ABB08FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF7AB01-7910-43A5-9873-E0587ABB08FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF7AB01-7910-43A5-9873-E0587ABB08FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E01D7E04-0BA6-49FE-A075-030EF3A594F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E01D7E04-0BA6-49FE-A075-030EF3A594F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E01D7E04-0BA6-49FE-A075-030EF3A594F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E01D7E04-0BA6-49FE-A075-030EF3A594F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E936F4D-BE3D-4EF2-9DA0-D02D27B7C1A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E936F4D-BE3D-4EF2-9DA0-D02D27B7C1A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E936F4D-BE3D-4EF2-9DA0-D02D27B7C1A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E936F4D-BE3D-4EF2-9DA0-D02D27B7C1A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DDAF19B-486A-42C4-984D-F104D068EDDA}
+	EndGlobalSection
+EndGlobal
