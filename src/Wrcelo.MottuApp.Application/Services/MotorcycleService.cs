@@ -1,4 +1,6 @@
-﻿using Wrcelo.VrumApp.Core.DTO;
+﻿using System.Text.Json;
+using System.Xml.Linq;
+using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Core.Shared;
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
@@ -16,19 +18,18 @@ namespace Wrcelo.VrumApp.Application.Services
         }
 
 
-        public async Task<bool> CreateMotorcycle(MotorcycleDTO motorcycleDto)
+        public async Task CreateMotorcycle(MotorcycleDTO motorcycleDto)
         {
             try
             {
-                var result = Motorcycle.Create(motorcycleDto.Year, motorcycleDto.Model, motorcycleDto.LicensePlate);
+                var motorcycle = Motorcycle.Create(motorcycleDto.Year, motorcycleDto.Model, motorcycleDto.LicensePlate);
 
-                if (result.IsFailure)
+                if (motorcycle.IsFailure)
                 {
-
+                    throw new Exception(JsonSerializer.Serialize(motorcycle.Errors));
                 }
 
-
-                return await _motorcycleRepository.CreateMotorcycle(motorcycleDto);
+                await _motorcycleRepository.CreateMotorcycle(motorcycle.Value);
             }
             catch (Exception)
             {
@@ -38,12 +39,12 @@ namespace Wrcelo.VrumApp.Application.Services
 
         }
 
-        public Task DeleteMotorcycle(int motorcycleId)
+        public async Task DeleteMotorcycle(Guid id)
         {
-            throw new NotImplementedException();
+            await _motorcycleRepository.DeleteMotorcycle(id);
         }
 
-        public async Task<bool> EditMotorcycleLicensePlate(int motorcycleId, EditMotorcycleDTO editMotorcycleDTO)
+        public async Task EditMotorcycleLicensePlate(Guid id, EditMotorcycleDTO editMotorcycleDTO)
         {
             try
             {
@@ -57,8 +58,7 @@ namespace Wrcelo.VrumApp.Application.Services
                     throw new Exception("License plate format is invalid.");
                 }
 
-                var result = await _motorcycleRepository.EditMotorcycleLicensePlate(motorcycleId, editMotorcycleDTO);
-                return result;
+                await _motorcycleRepository.EditMotorcycleLicensePlate(id, editMotorcycleDTO);
 
             }
             catch (Exception)
@@ -67,9 +67,19 @@ namespace Wrcelo.VrumApp.Application.Services
             }
         }
 
-        public Task<Motorcycle> GetMotorcycleByGuid(int motorcycleId)
+        public async Task<Motorcycle> GetMotorcycleByGuid(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var motorcycle = await _motorcycleRepository.GetMotorcycleByGuid(id);
+
+                return motorcycle;
+            }
+            catch (Exception)
+            {
+                throw;
+
+            }
         }
 
         public async Task<IEnumerable<Motorcycle>> GetMotorcycles()
@@ -77,6 +87,7 @@ namespace Wrcelo.VrumApp.Application.Services
             try
             {
                 var motorcycles = await _motorcycleRepository.GetMotorcycles();
+
                 return motorcycles;
 
             }
@@ -93,7 +104,6 @@ namespace Wrcelo.VrumApp.Application.Services
             {
                 var motorcycle = await _motorcycleRepository.GetMotorcycleByLicensePlate(licensePlate);
                 return motorcycle;
-
             }
             catch (Exception)
             {
