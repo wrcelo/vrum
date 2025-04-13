@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.8.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Wrcelo.MottuApp.Core\Wrcelo.VrumApp.Core.csproj" />
     <ProjectReference Include="..\Wrcelo.MottuApp.Infra.Data\Wrcelo.VrumApp.Infra.Data.csproj" />
   </ItemGroup>
