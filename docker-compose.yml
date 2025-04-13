@@ -1,0 +1,26 @@
+
+
+services:
+  vrumapp.api:
+    image: ${DOCKER_REGISTRY-}wrcelovrumappapi
+    container_name: vrumapp.api
+    build:
+      context: .
+      dockerfile: src/Wrcelo.VrumApp.API/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+
+  vrumapp.database:
+    image: postgres:latest
+    container_name: vrumapp.database
+    environment:
+      - POSTGRES_DB=vrumdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=vrum123
+    volumes:
+      - ./containers/vrumdb:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+      
