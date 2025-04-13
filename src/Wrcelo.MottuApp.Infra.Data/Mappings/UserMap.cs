@@ -14,6 +14,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Mappings
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("users");
+            builder.HasKey(m => m.Guid);
         }
     }
 }

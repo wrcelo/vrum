@@ -7,7 +7,7 @@ using Wrcelo.VrumApp.Domain.Service;
 namespace Wrcelo.VrumApp.API.Controllers
 {
 
-
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MotorcyclesController : ControllerBase
@@ -17,7 +17,7 @@ namespace Wrcelo.VrumApp.API.Controllers
         {
             _motorcycleService = motorcycleService;
         }
-        [Authorize(Roles = "Admin")]
+
         [HttpPost]
         public async Task<IActionResult> CreateMotorcycle([FromBody] MotorcycleDTO motorcycleDto)
         {

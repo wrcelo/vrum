@@ -33,7 +33,7 @@ namespace Wrcelo.VrumApp.Application.Services
 
                 var user = new User
                 {
-                    Id = Guid.NewGuid(),
+                    Guid = Guid.NewGuid(),
                     Email = userDto.Email,
                     Name = userDto.Name,
                     PasswordHash = BC.HashPassword(userDto.Password),

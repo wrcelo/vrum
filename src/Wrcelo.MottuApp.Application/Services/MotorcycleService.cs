@@ -41,6 +41,11 @@ namespace Wrcelo.VrumApp.Application.Services
 
         public async Task DeleteMotorcycle(Guid id)
         {
+
+            if(await _motorcycleRepository.IsMotorcycleReadyToDelete(id) == false) {
+                throw new Exception("Não é possível remover essa moto já que a mesma possui no mínimo uma locação.");
+            }
+
             await _motorcycleRepository.DeleteMotorcycle(id);
         }
 

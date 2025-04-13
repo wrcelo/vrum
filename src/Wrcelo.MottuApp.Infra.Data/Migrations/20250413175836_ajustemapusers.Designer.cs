@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wrcelo.VrumApp.Infra.Data.Context;
@@ -11,9 +12,11 @@ using Wrcelo.VrumApp.Infra.Data.Context;
 namespace Wrcelo.VrumApp.Infra.Data.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20250413175836_ajustemapusers")]
+    partial class ajustemapusers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +137,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Migrations
 
             modelBuilder.Entity("Wrcelo.VrumApp.Domain.Entity.User", b =>
                 {
-                    b.Property<Guid>("Guid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -154,7 +157,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Guid");
+                    b.HasKey("Id");
 
                     b.ToTable("users", (string)null);
                 });

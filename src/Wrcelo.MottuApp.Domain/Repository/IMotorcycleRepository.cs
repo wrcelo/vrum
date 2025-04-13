@@ -11,5 +11,6 @@ namespace Wrcelo.VrumApp.Domain.Repository
         Task EditMotorcycleLicensePlate(Guid id, EditMotorcycleDTO editMotorcycleDTO);
         Task<Motorcycle> GetMotorcycleByGuid(Guid id);
         Task DeleteMotorcycle(Guid id);
+        Task<bool> IsMotorcycleReadyToDelete(Guid id);
     }
 }

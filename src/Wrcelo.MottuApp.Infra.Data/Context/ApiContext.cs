@@ -13,6 +13,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Context
         public DbSet<Motorcycle> Motorcycles { get; set; }
         public DbSet<DeliveryDriver> DeliveryDrivers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Rental> Rentals { get; set; } 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,6 +23,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new MotorcycleMap());
             modelBuilder.ApplyConfiguration(new DeliveryDriverMap());
             modelBuilder.ApplyConfiguration(new RentalMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
 
 
         }

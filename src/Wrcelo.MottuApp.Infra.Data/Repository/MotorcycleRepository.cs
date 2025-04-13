@@ -57,5 +57,11 @@ namespace Wrcelo.VrumApp.Application.Services
             var result = await _context.Motorcycles.ToListAsync();
             return result;
         }
+
+        async Task<bool> IMotorcycleRepository.IsMotorcycleReadyToDelete(Guid motorcycleId)
+        {
+            var result = await _context.Rentals.Where(r => r.MotorcycleId == motorcycleId).ToListAsync();
+            return result.Count == 0;
+        }
     }
 }

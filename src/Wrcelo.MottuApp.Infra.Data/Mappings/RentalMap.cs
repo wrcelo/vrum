@@ -13,7 +13,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Rental> builder)
         {
-            builder.ToTable("Rentals");
+            builder.ToTable("rentals");
 
             builder.HasKey(r => r.Id);
 
