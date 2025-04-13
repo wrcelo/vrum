@@ -90,6 +90,20 @@ namespace Wrcelo.VrumApp.API
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<ApiContext>();
+                    context.Database.Migrate(); 
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro ao fazer migration: {ex.Message}");
+                }
+            }
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

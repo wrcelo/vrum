@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wrcelo.VrumApp.Infra.Data", "src\Wrcelo.VrumApp.Infra.Data\Wrcelo.VrumApp.Infra.Data.csproj", "{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{163D1709-B593-428B-8279-4878EF9455DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{349A37FE-BBB7-4D24-AD7B-EC3C34D1BA67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{163D1709-B593-428B-8279-4878EF9455DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{163D1709-B593-428B-8279-4878EF9455DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{163D1709-B593-428B-8279-4878EF9455DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{163D1709-B593-428B-8279-4878EF9455DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

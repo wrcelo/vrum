@@ -9,7 +9,7 @@
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7293;http://localhost:5022"
-    //},
+    }
     //"Docker": {
     //  "commandName": "Docker",
     //  "launchBrowser": true,
