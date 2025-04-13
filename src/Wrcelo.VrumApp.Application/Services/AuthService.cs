@@ -2,7 +2,6 @@
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
 using Wrcelo.VrumApp.Domain.Service;
-using BC = BCrypt.Net.BCrypt;
 
 namespace Wrcelo.VrumApp.Application.Services
 {
@@ -20,7 +19,7 @@ namespace Wrcelo.VrumApp.Application.Services
         public async Task<string> AuthenticateAsync(string email, string password)
         {
             var user = await _userRepository.GetByEmailAsync(email);
-            if (user == null || !BC.Verify(password, user.PasswordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
                 throw new UnauthorizedAccessException("Invalid credentials");
 
             return _tokenService.GenerateToken(user);
@@ -36,7 +35,7 @@ namespace Wrcelo.VrumApp.Application.Services
                     Guid = Guid.NewGuid(),
                     Email = userDto.Email,
                     Name = userDto.Name,
-                    PasswordHash = BC.HashPassword(userDto.Password),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password),
                     Role = userDto.Role
                 };
 
