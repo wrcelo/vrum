@@ -12,6 +12,8 @@ namespace Wrcelo.VrumApp.Infra.Data.Context
 
         public DbSet<Motorcycle> Motorcycles { get; set; }
         public DbSet<DeliveryDriver> DeliveryDrivers { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

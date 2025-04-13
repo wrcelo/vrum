@@ -22,7 +22,7 @@ namespace Wrcelo.VrumApp.Application.Services
         {
             try
             {
-                var motorcycle = Motorcycle.Create(motorcycleDto.Year, motorcycleDto.Model, motorcycleDto.LicensePlate);
+                var motorcycle = Motorcycle.Create(motorcycleDto.Year, motorcycleDto.Model, motorcycleDto.LicensePlate.ToUpper());
 
                 if (motorcycle.IsFailure)
                 {

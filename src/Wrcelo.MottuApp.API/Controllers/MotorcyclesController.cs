@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Core.Shared;
 using Wrcelo.VrumApp.Domain.Service;
@@ -16,7 +17,7 @@ namespace Wrcelo.VrumApp.API.Controllers
         {
             _motorcycleService = motorcycleService;
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateMotorcycle([FromBody] MotorcycleDTO motorcycleDto)
         {
