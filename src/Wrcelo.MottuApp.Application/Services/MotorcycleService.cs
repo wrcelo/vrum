@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Xml.Linq;
 using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Core.Shared;
 using Wrcelo.VrumApp.Domain.Entity;
@@ -42,7 +41,8 @@ namespace Wrcelo.VrumApp.Application.Services
         public async Task DeleteMotorcycle(Guid id)
         {
 
-            if(await _motorcycleRepository.IsMotorcycleReadyToDelete(id) == false) {
+            if (await _motorcycleRepository.IsMotorcycleReadyToDelete(id) == false)
+            {
                 throw new Exception("Não é possível remover essa moto já que a mesma possui no mínimo uma locação.");
             }
 
