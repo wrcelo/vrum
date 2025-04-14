@@ -15,9 +15,9 @@ namespace Wrcelo.VrumApp.Infra.Data.Mappings
         {
             builder.ToTable("rentals");
 
-            builder.HasKey(r => r.Id);
+            builder.HasKey(r => r.Guid);
 
-            builder.Property(r => r.Id)
+            builder.Property(r => r.Guid)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
@@ -44,12 +44,12 @@ namespace Wrcelo.VrumApp.Infra.Data.Mappings
 
             builder.HasOne(r => r.DeliveryDriver)
                 .WithMany(d => d.Rentals)
-                .HasForeignKey(r => r.DeliveryDriverId)
+                .HasForeignKey(r => r.DeliveryDriverGuid)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(r => r.Motorcycle)
                 .WithMany(m => m.Rentals)
-                .HasForeignKey(r => r.MotorcycleId)
+                .HasForeignKey(r => r.MotorcycleGuid)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -21,7 +21,7 @@ namespace Wrcelo.VrumApp.Application.Services
         {
             var user = await _userRepository.GetByEmailAsync(email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
-                throw new UnauthorizedAccessException("Invalid credentials");
+                throw new Exception("Credenciais inválidas.");
 
             return _tokenService.GenerateToken(user);
         }

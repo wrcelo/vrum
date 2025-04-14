@@ -38,15 +38,15 @@ namespace Wrcelo.VrumApp.Application.Services
 
         }
 
-        public async Task DeleteMotorcycle(Guid id)
+        public async Task DeleteMotorcycle(Guid guid)
         {
 
-            if (await _motorcycleRepository.IsMotorcycleReadyToDelete(id) == false)
+            if (await _motorcycleRepository.IsMotorcycleReadyToDelete(guid) == false)
             {
                 throw new Exception("Não é possível remover essa moto já que a mesma possui no mínimo uma locação.");
             }
 
-            await _motorcycleRepository.DeleteMotorcycle(id);
+            await _motorcycleRepository.DeleteMotorcycle(guid);
         }
 
         public async Task EditMotorcycleLicensePlate(Guid id, EditMotorcycleDTO editMotorcycleDTO)
@@ -76,6 +76,10 @@ namespace Wrcelo.VrumApp.Application.Services
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(id.ToString()))
+                {
+                    throw new Exception("Request mal formada");
+                }
                 var motorcycle = await _motorcycleRepository.GetMotorcycleByGuid(id);
 
                 return motorcycle;

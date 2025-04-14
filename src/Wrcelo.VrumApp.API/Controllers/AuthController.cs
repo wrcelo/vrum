@@ -15,18 +15,27 @@ namespace Wrcelo.VrumApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
         {
-            var token = await _authService.AuthenticateAsync(loginDto.Email, loginDto.Password);
-            return Ok(new { Token = token });
+            try
+            {
+                var token = await _authService.AuthenticateAsync(loginDto.Email, loginDto.Password);
+                return Ok(new { Token = token });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = ex.Message });
+            }
+
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserDTO userDto)
         {
-            
+
             await _authService.RegisterAsync(userDto, User);
             return Ok();
         }
 
 
     }
-} 
+}

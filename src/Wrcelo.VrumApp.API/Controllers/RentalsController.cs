@@ -26,8 +26,7 @@ namespace Wrcelo.VrumApp.API.Controllers
             }
             catch (Exception ex)
             {
-
-                return BadRequest(ex.Message);
+                return BadRequest(new { mensagem = ex.Message });
             }
         }
     }

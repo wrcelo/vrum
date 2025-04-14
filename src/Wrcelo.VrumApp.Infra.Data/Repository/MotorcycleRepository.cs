@@ -20,7 +20,7 @@ namespace Wrcelo.VrumApp.Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteMotorcycle(Guid id)
+        public Task DeleteMotorcycle(Guid guid)
         {
             throw new NotImplementedException();
         }
@@ -57,9 +57,9 @@ namespace Wrcelo.VrumApp.Application.Services
             return result;
         }
 
-        async Task<bool> IMotorcycleRepository.IsMotorcycleReadyToDelete(Guid motorcycleId)
+        async Task<bool> IMotorcycleRepository.IsMotorcycleReadyToDelete(Guid motorcycleGuid)
         {
-            var result = await _context.Rentals.Where(r => r.MotorcycleId == motorcycleId).ToListAsync();
+            var result = await _context.Rentals.Where(r => r.MotorcycleGuid == motorcycleGuid).ToListAsync();
             return result.Count == 0;
         }
     }

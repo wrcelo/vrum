@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wrcelo.VrumApp.Core.DTO;
-using Wrcelo.VrumApp.Core.Shared;
 using Wrcelo.VrumApp.Domain.Service;
 
 namespace Wrcelo.VrumApp.API.Controllers
@@ -28,7 +27,7 @@ namespace Wrcelo.VrumApp.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { mensagem = ex.Message });
             }
 
         }
@@ -64,7 +63,7 @@ namespace Wrcelo.VrumApp.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { mensagem = ex.Message });
             }
         }
 
@@ -74,12 +73,18 @@ namespace Wrcelo.VrumApp.API.Controllers
         {
             try
             {
-                return Ok(await _motorcycleService.GetMotorcycleByGuid(id)); 
+                var motorcycle = await _motorcycleService.GetMotorcycleByGuid(id);
+
+                if (motorcycle == null)
+                    return NotFound();
+
+
+                return Ok(motorcycle);
             }
             catch (Exception ex)
             {
 
-                return BadRequest(ex.Message);
+                return BadRequest(new { mensagem = ex.Message });
 
             }
         }
@@ -96,7 +101,7 @@ namespace Wrcelo.VrumApp.API.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(ex.Message);
+                return BadRequest(new { mensagem = ex.Message });
             }
         }
 

@@ -5,8 +5,8 @@ namespace Wrcelo.VrumApp.Domain.Service
 {
     public interface IRentalService
     {
-        Task CreateRental(RentalDTO rentalDto);
-        Task<Rental> GetRental(Guid rentalGuid);
+        public Task CreateRental(RentalDTO rentalDto);
+        public Task<Rental> GetRental(Guid rentalGuid);
 
     }
 }
