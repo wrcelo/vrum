@@ -61,6 +61,13 @@ namespace Wrcelo.VrumApp.API
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IDeliveryDriverService, DeliveryDriverService>();
+            builder.Services.AddScoped<IDeliveryDriverRepository, DeliveryDriverRepository>();
+            builder.Services.AddScoped<IRentalService, RentalService>();
+            builder.Services.AddScoped<IRentalRepository, RentalRepository>();
+
+
+
 
 
             // CONFIGURAÇÃO DE AUTENTICAÇÃO JWT ABAIXO
