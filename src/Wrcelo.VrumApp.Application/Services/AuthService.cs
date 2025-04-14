@@ -1,4 +1,5 @@
-﻿using Wrcelo.VrumApp.Core.DTO;
+﻿using System.Security.Claims;
+using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
 using Wrcelo.VrumApp.Domain.Service;
@@ -25,11 +26,10 @@ namespace Wrcelo.VrumApp.Application.Services
             return _tokenService.GenerateToken(user);
         }
 
-        public async Task RegisterAsync(UserDTO userDto)
+        public async Task RegisterAsync(UserDTO userDto, ClaimsPrincipal loggedUser)
         {
             try
             {
-
                 var user = new User
                 {
                     Guid = Guid.NewGuid(),
