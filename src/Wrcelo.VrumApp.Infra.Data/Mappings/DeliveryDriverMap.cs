@@ -52,7 +52,9 @@ namespace Wrcelo.VrumApp.Infra.Data.Mappings
             builder.HasIndex(m => m.DriverLicenseNumber)
                 .IsUnique();
 
+            builder.HasIndex(m => m.UserGuid).IsUnique();
 
+            builder.Property(m => m.UserGuid).IsRequired();
 
         }
     }

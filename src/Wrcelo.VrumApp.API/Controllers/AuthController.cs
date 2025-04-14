@@ -22,7 +22,8 @@ namespace Wrcelo.VrumApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserDTO userDto)
         {
-            await _authService.RegisterAsync(userDto);
+            
+            await _authService.RegisterAsync(userDto, User);
             return Ok();
         }
 

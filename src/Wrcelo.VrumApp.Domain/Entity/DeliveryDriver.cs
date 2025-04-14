@@ -10,7 +10,7 @@ namespace Wrcelo.VrumApp.Domain.Entity
 {
     public class DeliveryDriver
     {
-        public DeliveryDriver(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string driverLicenseImagePath)
+        public DeliveryDriver(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string? driverLicenseImagePath)
         {
             Name = name;
             Cnpj = cnpj;
@@ -27,10 +27,11 @@ namespace Wrcelo.VrumApp.Domain.Entity
         public string DriverLicenseNumber { get; set; } 
         public string DriverLicenseType { get; set; } 
         public string DriverLicenseImagePath { get; set; }
+        public Guid UserGuid { get; set; }
         public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
 
 
-        public Result<DeliveryDriver> Create(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string driverLicenseImagePath)
+        public static Result<DeliveryDriver> Create(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string? driverLicenseImagePath)
         {
             var errors = new List<string>();
             
@@ -44,14 +45,14 @@ namespace Wrcelo.VrumApp.Domain.Entity
             if(birthDate > DateTime.Now.AddYears(-18))
                 errors.Add("Entregador deve ser maior de 18 anos.");
 
-            if (!string.IsNullOrWhiteSpace(driverLicenseNumber))
+            if (string.IsNullOrWhiteSpace(driverLicenseNumber))
                 errors.Add("CNH deve ser preenchido.");
 
-            if (!string.IsNullOrWhiteSpace(driverLicenseType))
+            if (string.IsNullOrWhiteSpace(driverLicenseType))
                 errors.Add("Tipo da CNH deve ser preenchido");
 
-            if(driverLicenseType != "A" && driverLicenseType != "B" && driverLicenseType != "AB")
-                errors.Add("Tipo da CNH deve ser A, B ou A+B");
+            if (driverLicenseType != "A" && driverLicenseType != "B" && driverLicenseType != "AB")
+                errors.Add("Tipo da CNH deve ser 'A', 'B' ou 'A+B'");
 
 
 
