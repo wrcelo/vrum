@@ -24,10 +24,10 @@ namespace Wrcelo.VrumApp.API.Controllers
                 await _rentalService.CreateRental(rentalDto);
                 return Created();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
     }
