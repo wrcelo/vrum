@@ -1,5 +1,7 @@
-﻿using System.Text.Json;
+﻿using Infra.Data.Services;
+using System.Text.Json;
 using Wrcelo.VrumApp.Core.DTO;
+using Wrcelo.VrumApp.Core.Events;
 using Wrcelo.VrumApp.Core.Shared;
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
@@ -10,12 +12,14 @@ namespace Wrcelo.VrumApp.Application.Services
     public class MotorcycleService : IMotorcycleService
     {
         private readonly IMotorcycleRepository _motorcycleRepository;
+        private readonly RabbitMQService _rabbitMQService;
 
-        public MotorcycleService(IMotorcycleRepository motorcycleRepository)
+
+        public MotorcycleService(IMotorcycleRepository motorcycleRepository, RabbitMQService rabbitMQService)
         {
             _motorcycleRepository = motorcycleRepository;
+            _rabbitMQService = rabbitMQService;
         }
-
 
         public async Task CreateMotorcycle(MotorcycleDTO motorcycleDto)
         {
@@ -27,6 +31,10 @@ namespace Wrcelo.VrumApp.Application.Services
                 {
                     throw new Exception(JsonSerializer.Serialize(motorcycle.Errors));
                 }
+
+                var evento = new MotorcyclePostedEvent(motorcycle.Value.Guid, motorcycle.Value.Model, motorcycle.Value.Year, DateTime.UtcNow);
+                var mensagem = JsonSerializer.Serialize(evento);
+                _rabbitMQService.Publish(mensagem);
 
                 await _motorcycleRepository.CreateMotorcycle(motorcycle.Value);
             }

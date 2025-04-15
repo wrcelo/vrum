@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wrcelo.VrumApp.Infra.Data.Context;
@@ -11,9 +12,11 @@ using Wrcelo.VrumApp.Infra.Data.Context;
 namespace Wrcelo.VrumApp.Infra.Data.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20250415210636_ajusteNotification")]
+    partial class ajusteNotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,27 +104,27 @@ namespace Wrcelo.VrumApp.Infra.Data.Migrations
 
             modelBuilder.Entity("Wrcelo.VrumApp.Domain.Entity.MotorcycleNotification", b =>
                 {
-                    b.Property<Guid>("Guid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<int>("Ano")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DataNotificacao")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Model")
+                    b.Property<string>("Modelo")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid>("MotorcycleGuid")
+                    b.Property<Guid>("MotoId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
+                    b.HasKey("Id");
 
-                    b.HasKey("Guid");
-
-                    b.ToTable("motorcycle_notifications", (string)null);
+                    b.ToTable("NotificacoesMoto", (string)null);
                 });
 
             modelBuilder.Entity("Wrcelo.VrumApp.Domain.Entity.Rental", b =>

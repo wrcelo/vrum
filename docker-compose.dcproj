@@ -4,10 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>163d1709-b593-428b-8279-4878ef9455da</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>wrcelo.vrumapp.api</DockerServiceName>
+    <ProjectGuid>e75ee614-12b5-4bd1-8919-a4de5e9cdd0f</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

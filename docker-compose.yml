@@ -1,15 +1,19 @@
-
+version: '3.8'
 
 services:
   vrumapp.api:
-    image: ${DOCKER_REGISTRY-}wrcelovrumappapi
+    image: wrcelovrumappapi
     container_name: vrumapp.api
     build:
       context: .
       dockerfile: src/Wrcelo.VrumApp.API/Dockerfile
     ports:
       - "5000:5000"
-      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on:
+      - vrumapp.database
+      - vrumapp.rabbitmq
 
   vrumapp.database:
     image: postgres:latest
@@ -21,6 +25,14 @@ services:
     volumes:
       - ./containers/vrumdb:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
 
-      
+  vrumapp.rabbitmq:
+    image: rabbitmq:3-management
+    container_name: vrumapp.rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest

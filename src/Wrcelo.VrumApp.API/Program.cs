@@ -8,6 +8,11 @@ using Wrcelo.VrumApp.Domain.Service;
 using Wrcelo.VrumApp.Infra.Data.Context;
 using Wrcelo.VrumApp.Infra.Data.Repository;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Configuration;
+using Wrcelo.VrumApp.Infra.Data.Configs;
+using Infra.Services;
+using Microsoft.Extensions.Options;
+using Infra.Data.Services;
 
 
 namespace Wrcelo.VrumApp.API
@@ -50,20 +55,28 @@ namespace Wrcelo.VrumApp.API
                     Id = "Bearer"
                 }
             },
-            Array.Empty<string>()
-        }
-    });
+                        Array.Empty<string>()
+                    }
+                });
             });
 
+            Console.WriteLine($"Ambiente atual: {builder.Environment.EnvironmentName}");
+
+            var rabbitConfig = builder.Configuration.GetSection("RabbitMQConfig").Get<RabbitMQConfig>();
+            builder.Services.AddSingleton(rabbitConfig);
+            builder.Services.AddSingleton<RabbitMQService>();
+            builder.Services.AddHostedService<RabbitMQConsumer>();
 
             builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IDeliveryDriverService, DeliveryDriverService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IRentalService, RentalService>();
+
+            builder.Services.AddScoped<IMotorcycleNotificationRepository, MotorcycleNotificationRepository>();
             builder.Services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<ITokenService, TokenService>();
-            builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<IDeliveryDriverService, DeliveryDriverService>();
             builder.Services.AddScoped<IDeliveryDriverRepository, DeliveryDriverRepository>();
-            builder.Services.AddScoped<IRentalService, RentalService>();
             builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 
 
@@ -111,13 +124,17 @@ namespace Wrcelo.VrumApp.API
                 }
             }
 
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Docker"))
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            if (!app.Environment.IsEnvironment("Docker"))
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

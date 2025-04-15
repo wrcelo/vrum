@@ -17,11 +17,6 @@ namespace Wrcelo.VrumApp.Infra.Data.Mappings
 
             builder.HasKey(m => m.Guid);
 
-
-            builder.Property(m => m.Guid)
-                .IsRequired()
-                .ValueGeneratedOnAdd();
-
             builder.Property(m => m.Name)
                 .IsRequired()
                 .HasMaxLength(100);
