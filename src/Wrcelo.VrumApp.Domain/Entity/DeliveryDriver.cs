@@ -42,7 +42,7 @@ namespace Wrcelo.VrumApp.Domain.Entity
             if (string.IsNullOrWhiteSpace(cnpj))
                 errors.Add("CNPJ deve ser preenchido.");
 
-            if(birthDate > DateTime.Now.AddYears(-18))
+            if(birthDate > DateTime.UtcNow.AddYears(-18))
                 errors.Add("Entregador deve ser maior de 18 anos.");
 
             if (string.IsNullOrWhiteSpace(driverLicenseNumber))
