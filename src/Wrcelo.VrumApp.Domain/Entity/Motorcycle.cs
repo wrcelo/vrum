@@ -7,6 +7,7 @@ namespace Wrcelo.VrumApp.Domain.Entity
 
         private Motorcycle(int year, string model, string licensePlate)
         {
+            Guid = Guid.NewGuid();
             Year = year;
             Model = model;
             LicensePlate = licensePlate;
@@ -25,16 +26,16 @@ namespace Wrcelo.VrumApp.Domain.Entity
 
 
             if (year <= 0)
-                errors.Add("Invalid year.");
+                errors.Add("Ano inválido");
 
             if (string.IsNullOrWhiteSpace(model))
-                errors.Add("Model is required.");
+                errors.Add("Modelo é obrigatório");
 
             if (string.IsNullOrWhiteSpace(licensePlate))
-                errors.Add("License plate is required.");
+                errors.Add("Placa é obrigatória");
 
             if(!LicensePlateValidator.IsValid(licensePlate))
-                errors.Add("License plate format is invalid.");
+                errors.Add("A placa informada não é válida");
 
             if (errors.Count > 0)
                 return Result<Motorcycle>.Failure(errors);
@@ -46,7 +47,7 @@ namespace Wrcelo.VrumApp.Domain.Entity
         public void UpdateLicensePlate(string newLicensePlate)
         {
             if (string.IsNullOrWhiteSpace(newLicensePlate))
-                throw new ArgumentException("License plate cannot be empty.");
+                throw new ArgumentException("A placa deve ser informada");
 
             LicensePlate = newLicensePlate;
         }
