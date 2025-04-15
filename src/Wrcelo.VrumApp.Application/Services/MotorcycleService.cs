@@ -31,10 +31,17 @@ namespace Wrcelo.VrumApp.Application.Services
                 {
                     throw new Exception(JsonSerializer.Serialize(motorcycle.Errors));
                 }
+                var isLicensePlateAlreadyRegistered = await _motorcycleRepository.GetMotorcycleByLicensePlate(motorcycle.Value.LicensePlate) is not null;
+                if (isLicensePlateAlreadyRegistered)
+                {
+                    throw new Exception("Essa placa já foi cadastrada.");
+                }
 
                 var evento = new MotorcyclePostedEvent(motorcycle.Value.Guid, motorcycle.Value.Model, motorcycle.Value.Year, DateTime.UtcNow);
                 var mensagem = JsonSerializer.Serialize(evento);
                 _rabbitMQService.Publish(mensagem);
+
+
 
                 await _motorcycleRepository.CreateMotorcycle(motorcycle.Value);
             }
