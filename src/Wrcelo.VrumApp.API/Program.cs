@@ -1,18 +1,17 @@
+using Infra.Data.Services;
+using Infra.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using Wrcelo.VrumApp.Application.Services;
+using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Domain.Repository;
 using Wrcelo.VrumApp.Domain.Service;
+using Wrcelo.VrumApp.Infra.Data.Configs;
 using Wrcelo.VrumApp.Infra.Data.Context;
 using Wrcelo.VrumApp.Infra.Data.Repository;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Configuration;
-using Wrcelo.VrumApp.Infra.Data.Configs;
-using Infra.Services;
-using Microsoft.Extensions.Options;
-using Infra.Data.Services;
 
 
 namespace Wrcelo.VrumApp.API
@@ -122,13 +121,36 @@ namespace Wrcelo.VrumApp.API
                 try
                 {
                     var context = services.GetRequiredService<ApiContext>();
-                    context.Database.Migrate(); 
+                    context.Database.Migrate();
+
+                    var userRepo = services.GetRequiredService<IUserRepository>();
+                    var authService = services.GetRequiredService<IAuthService>();
+
+                    var existingAdmin = userRepo.GetByEmailAsync("admin@vrum.com").GetAwaiter().GetResult();
+                    if (existingAdmin is null)
+                    {
+                        var adminDto = new UserDTO
+                        {
+                            Email = "admin@vrum.com",
+                            Name = "admin",
+                            Password = "vrum123",
+                            Role = "Admin"
+                        };
+
+                        authService.RegisterAsync(adminDto, null).GetAwaiter().GetResult();
+                        Console.WriteLine("Usuário admin criado com sucesso.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Usuário admin já existe.");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Erro ao fazer migration: {ex.Message}");
+                    Console.WriteLine($"Erro ao inicializar a aplicação: {ex.Message}");
                 }
             }
+
 
             if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Docker"))
             {
