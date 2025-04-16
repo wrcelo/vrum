@@ -58,7 +58,7 @@ namespace Wrcelo.VrumApp.Application.Services
 
             if (await _motorcycleRepository.IsMotorcycleReadyToDelete(guid) == false)
             {
-                throw new Exception("Não é possível remover essa moto já que a mesma possui no mínimo uma locação.");
+                throw new Exception("Não é possível remover essa moto pois ela já se encontra alugada para esse período.");
             }
 
             await _motorcycleRepository.DeleteMotorcycle(guid);

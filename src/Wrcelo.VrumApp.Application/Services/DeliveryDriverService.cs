@@ -37,11 +37,15 @@ namespace Wrcelo.VrumApp.Application.Services
                     Email = deliveryDriverDto.Email,
                     Name = deliveryDriverDto.Name,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(deliveryDriverDto.Password),
-                    Role = deliveryDriverDto.Role
+                    Role = "Entregador"
                 });
 
                 var deliveryGuid = await _deliveryDriverRepository.CreateDeliveryDriver(deliveryDriver.Value, userGuid);
+
+            if (!string.IsNullOrWhiteSpace(deliveryDriverDto.DriverLicenseImageBase64))
+            {
                 await UpdateLicenseImage(deliveryGuid, deliveryDriverDto.DriverLicenseImageBase64);
+            }
            
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Wrcelo.VrumApp.Core.DTO
         public string DriverLicenseType { get; set; }
         public string DriverLicenseImageBase64 { get; set; }
 
-        [JsonIgnore]
-        public string Role { get; set; }
+        [SwaggerSchema(ReadOnly = true)]
+        public string Role { get; set; } = "Entregador";
     }
 }

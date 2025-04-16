@@ -30,7 +30,7 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
 
         public async Task<bool> IsDriverLicenseTypeA(Guid deliveryDriverGuid)
         {
-            var deliveryDriver = await _context.DeliveryDrivers.FirstAsync(u => u.Guid == deliveryDriverGuid);
+            var deliveryDriver = await _context.DeliveryDrivers.FirstOrDefaultAsync(u => u.Guid == deliveryDriverGuid);
 
             if (deliveryDriver == null)
             {
