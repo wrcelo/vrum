@@ -10,8 +10,9 @@ namespace Wrcelo.VrumApp.Domain.Entity
 {
     public class DeliveryDriver
     {
-        public DeliveryDriver(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string? driverLicenseImagePath)
+        public DeliveryDriver(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType,  string? driverLicenseImagePath )
         {
+
             Name = name;
             Cnpj = cnpj;
             BirthDate = birthDate;
@@ -31,7 +32,12 @@ namespace Wrcelo.VrumApp.Domain.Entity
         public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
 
 
-        public static Result<DeliveryDriver> Create(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string? driverLicenseImagePath)
+        public void UpdateImagePath(string imagePath)
+        {
+            DriverLicenseImagePath = imagePath;
+        }
+
+            public static Result<DeliveryDriver> Create(string name, string cnpj, DateTime birthDate, string driverLicenseNumber, string driverLicenseType, string? driverLicenseImagePath)
         {
             var errors = new List<string>();
             

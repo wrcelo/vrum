@@ -14,6 +14,7 @@ services:
     depends_on:
       - vrumapp.database
       - vrumapp.rabbitmq
+      - vrumapp.minio 
 
   vrumapp.database:
     image: postgres:latest
@@ -36,3 +37,16 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+
+  vrumapp.minio:
+      image: minio/minio
+      container_name: vrumapp.minio
+      ports:
+          - "9000:9000"
+          - "9001:9001"
+      volumes:
+          - ./containers/minio/data:/data
+      environment:
+          MINIO_ROOT_USER: minio
+          MINIO_ROOT_PASSWORD: minio123
+      command: server /data --console-address ":9001"

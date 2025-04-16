@@ -56,6 +56,11 @@ namespace Wrcelo.VrumApp.Application.Services
             if (rental is null)
                 throw new Exception("Locação não entrada.");
 
+            if(updateEndDateDto.DevolutionDate < rental.StartDate)
+            {
+                throw new Exception("A data de devolução deve ser menor que a data de início da locação");
+            }
+
             rental.EndRental(updateEndDateDto.DevolutionDate);
 
             await _rentalRepository.UpdateRental(rental);

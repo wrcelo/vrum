@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
 using Wrcelo.VrumApp.Infra.Data.Context;
@@ -13,16 +14,22 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task CreateDeliveryDriver(DeliveryDriver deliveryDriver, Guid userGuid)
+        public async Task<Guid> CreateDeliveryDriver(DeliveryDriver deliveryDriver, Guid userGuid)
         {
+            var guidDelivery = Guid.NewGuid();
             deliveryDriver.UserGuid = userGuid;
+            deliveryDriver.Guid = guidDelivery;
+
             await _context.DeliveryDrivers.AddAsync(deliveryDriver);
             await _context.SaveChangesAsync();
+
+            return guidDelivery;
         }
 
-        public async Task UpdateDriverLicenseImage(string base64ImageString)
+        public async Task UpdateDriverLicenseImage(DeliveryDriver deliveryDriver, string base64ImageString)
         {
-            return;
+            _context.Update(deliveryDriver);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<DeliveryDriver>> GetAllDeliveryDrivers()

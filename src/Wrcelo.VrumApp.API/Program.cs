@@ -60,12 +60,17 @@ namespace Wrcelo.VrumApp.API
                 });
             });
 
-            Console.WriteLine($"Ambiente atual: {builder.Environment.EnvironmentName}");
+            //Console.WriteLine($"Ambiente atual: {builder.Environment.EnvironmentName}");
 
             var rabbitConfig = builder.Configuration.GetSection("RabbitMQConfig").Get<RabbitMQConfig>();
+            var minioConfig = builder.Configuration.GetSection("MinioConfig").Get<MinioConfiguration>();
+
             builder.Services.AddSingleton(rabbitConfig);
+            builder.Services.AddSingleton(minioConfig);
+
             builder.Services.AddSingleton<RabbitMQService>();
-            builder.Services.AddHostedService<RabbitMQConsumer>();
+            builder.Services.AddSingleton<MinioStorageService>();
+
 
             builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
@@ -79,6 +84,7 @@ namespace Wrcelo.VrumApp.API
             builder.Services.AddScoped<IDeliveryDriverRepository, DeliveryDriverRepository>();
             builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 
+            builder.Services.AddHostedService<RabbitMQConsumer>();
 
 
 

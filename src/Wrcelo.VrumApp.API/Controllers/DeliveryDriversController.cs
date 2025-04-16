@@ -25,9 +25,9 @@ namespace Wrcelo.VrumApp.API.Controllers
                 await _deliveryDriverService.CreateDeliveryDriver(deliveryDriverDTO);
                 return Created();
             }
-            catch (Exception)
+            catch (Exception ex) 
             {
-                return BadRequest(new {mensagem = "Dados inválidos"});
+                return BadRequest(new {mensagem = $"Dados inválidos: {ex.InnerException}"});
             }
         }
 

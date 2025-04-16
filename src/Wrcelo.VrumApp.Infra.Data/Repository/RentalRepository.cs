@@ -42,8 +42,13 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
 
         public async Task<bool> IsMotorcycleAvailable(Guid motorcycleGuid, DateTime startDate, DateTime endDate)
         {
-            var rental = _context.Rentals.Where(r => motorcycleGuid == r.MotorcycleGuid && startDate >= r.StartDate || endDate >= r.ExpectedEndDate);
-            return !rental.Any();
+            var rentalConflict = await _context.Rentals
+                .AnyAsync(r =>
+                    r.MotorcycleGuid == motorcycleGuid &&
+                    r.StartDate < endDate &&
+                    r.ExpectedEndDate > startDate);
+
+            return !rentalConflict;
         }
 
         public async Task<IEnumerable<Rental>> GetAllRentals()
