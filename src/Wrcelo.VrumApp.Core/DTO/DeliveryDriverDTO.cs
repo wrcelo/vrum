@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Wrcelo.VrumApp.Core.DTO
@@ -14,5 +15,8 @@ namespace Wrcelo.VrumApp.Core.DTO
         public string DriverLicenseNumber { get; set; }
         public string DriverLicenseType { get; set; }
         public string DriverLicenseImageBase64 { get; set; }
+
+        [JsonIgnore]
+        public string Role { get; set; }
     }
 }
