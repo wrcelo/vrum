@@ -36,6 +36,15 @@ Isso irá subir toda a infraestrutura da aplicação, incluindo banco de dados, 
 
 ---
 
+## 📚 Documentação da API
+
+A documentação interativa (Swagger) está disponível após subir a aplicação.  
+Acesse pelo navegador: http://localhost:5000/swagger
+
+Lá você pode testar os endpoints, visualizar contratos e realizar requisições autenticadas com JWT.
+
+---
+
 ## 🔐 Acesso inicial
 
 Ao iniciar a aplicação, um usuário padrão com permissão de Admin é criado automaticamente com as seguintes credenciais:
