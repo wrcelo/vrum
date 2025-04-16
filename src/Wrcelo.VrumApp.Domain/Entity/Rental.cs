@@ -19,10 +19,10 @@ namespace Wrcelo.VrumApp.Domain.Entity
         public Guid Guid { get; private set; }
 
         public Guid DeliveryDriverGuid { get; private set; }
-        public DeliveryDriver DeliveryDriver { get; private set; }
+        public DeliveryDriver DeliveryDriver { get; set; }
 
         public Guid MotorcycleGuid { get; private set; }
-        public Motorcycle Motorcycle { get; private set; }
+        public Motorcycle Motorcycle { get; set; }
 
         public DateTime StartDate { get; private set; }
         public DateTime ExpectedEndDate { get; private set; }

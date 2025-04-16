@@ -31,8 +31,7 @@ namespace Wrcelo.VrumApp.API
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VrumApp API", Version = "v1" });
-
-
+                c.EnableAnnotations();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -137,7 +136,7 @@ namespace Wrcelo.VrumApp.API
                             Role = "Admin"
                         };
 
-                        authService.RegisterAsync(adminDto, null).GetAwaiter().GetResult();
+                        authService.RegisterAsync(adminDto).GetAwaiter().GetResult();
                         Console.WriteLine("Usuário admin criado com sucesso.");
                     }
                     else

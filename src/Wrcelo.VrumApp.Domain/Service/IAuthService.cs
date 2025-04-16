@@ -6,6 +6,6 @@ namespace Wrcelo.VrumApp.Domain.Service
     public interface IAuthService
     {
         Task<string> AuthenticateAsync(string email, string password);
-        Task RegisterAsync(UserDTO userDto, ClaimsPrincipal loggedUser);
+        Task RegisterAsync(UserDTO userDto);
     }
 }

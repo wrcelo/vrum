@@ -29,7 +29,7 @@ namespace Wrcelo.VrumApp.Domain.Entity
         public string DriverLicenseType { get; set; } 
         public string DriverLicenseImagePath { get; set; }
         public Guid UserGuid { get; set; }
-        public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
+        public ICollection<Rental> Rentals { get; private set; } = new List<Rental>();
 
 
         public void UpdateImagePath(string imagePath)

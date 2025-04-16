@@ -26,7 +26,7 @@ namespace Wrcelo.VrumApp.Application.Services
             return _tokenService.GenerateToken(user);
         }
 
-        public async Task RegisterAsync(UserDTO userDto, ClaimsPrincipal loggedUser)
+        public async Task RegisterAsync(UserDTO userDto)
         {
             try
             {

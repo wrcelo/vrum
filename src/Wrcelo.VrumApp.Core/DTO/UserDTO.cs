@@ -17,6 +17,6 @@ namespace Wrcelo.VrumApp.Core.DTO
         [MinLength(6)]
         public string Password { get; set; } = string.Empty;
 
-        public string Role { get; set; } = "Entregador";
+        public string? Role { get; set; } = "Entregador";
     }
 }

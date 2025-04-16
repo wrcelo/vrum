@@ -18,6 +18,8 @@ namespace Wrcelo.VrumApp.Core.DTO
         public string DriverLicenseImageBase64 { get; set; }
 
         [SwaggerSchema(ReadOnly = true)]
-        public string Role { get; set; } = "Entregador";
+        public string Role { get; set; }
+
+
     }
 }

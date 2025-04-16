@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Domain.Service;
 
@@ -29,15 +30,13 @@ namespace Wrcelo.VrumApp.API.Controllers
             }
 
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserDTO userDto)
         {
-
-            await _authService.RegisterAsync(userDto, User);
+            await _authService.RegisterAsync(userDto);
             return Ok();
         }
-
 
     }
 }
