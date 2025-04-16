@@ -6,7 +6,7 @@ namespace Wrcelo.VrumApp.API.Controllers
 {
 
 
-    [Route("api/[controller]")]
+    [Route("api/delivery-drivers")]
     [ApiController]
     public class DeliveryDriversController : ControllerBase
     {
@@ -43,6 +43,23 @@ namespace Wrcelo.VrumApp.API.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost]
+        [Route("{id}/license")]
+        public async Task<IActionResult> PostLicenseImage([FromBody] LicenseImageBase64StringDTO licenseImageDto, Guid id)
+        {
+            try
+            {
+                await _deliveryDriverService.UpdateLicenseImage(id, licenseImageDto.LicensePhotoBase64String);
+                return Created();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { mensagem = $"Dados inválidos: {ex.Message}" });
+            }
+        }
+
 
     }
 }

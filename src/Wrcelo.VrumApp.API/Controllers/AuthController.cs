@@ -4,7 +4,7 @@ using Wrcelo.VrumApp.Domain.Service;
 
 namespace Wrcelo.VrumApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {

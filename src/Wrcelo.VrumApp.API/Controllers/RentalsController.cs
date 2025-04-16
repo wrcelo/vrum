@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Domain.Service;
 
 namespace Wrcelo.VrumApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/rentals")]
     [ApiController]
     public class RentalsController : ControllerBase
     {
@@ -29,5 +27,51 @@ namespace Wrcelo.VrumApp.API.Controllers
                 return BadRequest(new { mensagem = ex.Message });
             }
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetRentalById(Guid id)
+        {
+            try
+            {
+                return Ok(await _rentalService.GetRentalById(id));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { mensagem = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllRentals()
+        {
+            try
+            {
+                return Ok(await _rentalService.GetAllRentals());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { mensagem = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}/devolution")]
+        public async Task<IActionResult> MotorcycleReturn([FromBody] UpdateEndDateDTO dateDto, Guid id)
+        {
+            try
+            {
+                await _rentalService.RentalUpdateEndDate(dateDto, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { mensagem = ex.Message });
+            }
+        }
+
     }
 }

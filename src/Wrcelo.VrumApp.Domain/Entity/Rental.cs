@@ -120,9 +120,58 @@ namespace Wrcelo.VrumApp.Domain.Entity
         public void EndRental(DateTime actualEndDate)
         {
             if (actualEndDate < StartDate)
-                throw new ArgumentException("A data de término não pode ser anterior a data de início.");
+                throw new ArgumentException("A data de término não pode ser anterior à data de início.");
 
             ActualEndDate = actualEndDate;
+
+            var totalDaysUsed = (ActualEndDate.Value - StartDate).Days;
+
+            if (totalDaysUsed == 0)
+            {
+                totalDaysUsed = 1;
+            }
+
+            if (actualEndDate < ExpectedEndDate)
+            {
+                // devolução antecipada
+                var usedDays = (actualEndDate - StartDate).Days;
+                if (usedDays == 0)
+                    usedDays = 1;
+
+                var usedAmount = usedDays * DailyRate;
+                var unusedDays = PlanDays - usedDays;
+
+                decimal penaltyRate = 0;
+
+                switch (PlanDays)
+                {
+                    case 7:
+                        penaltyRate = 0.20m;
+                        break;
+                    case 15:
+                        penaltyRate = 0.40m;
+                        break;
+                    default:
+                        penaltyRate = 0;
+                        break;
+                }
+
+                var penaltyAmount = unusedDays * DailyRate * penaltyRate;
+                TotalAmount = usedAmount + penaltyAmount;
+            }
+            else if (actualEndDate > ExpectedEndDate)
+            {
+                // devolução com atraso
+                var extraDays = (actualEndDate - ExpectedEndDate).Days;
+                if (extraDays == 0)
+                    extraDays = 1;
+
+                var extraCost = extraDays * 50m;
+                TotalAmount += extraCost;
+            }
         }
+
+
+
     }
 }

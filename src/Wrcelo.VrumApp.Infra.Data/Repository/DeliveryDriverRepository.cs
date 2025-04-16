@@ -20,9 +20,9 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public Task UpdateDriverLicenseImage(string base64ImageString)
+        public async Task UpdateDriverLicenseImage(string base64ImageString)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public async Task<IEnumerable<DeliveryDriver>> GetAllDeliveryDrivers()
@@ -30,6 +30,11 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
 
             return await _context.DeliveryDrivers.ToListAsync();
 
+        }
+
+        public async Task<DeliveryDriver> GetDeliveryDriverById(Guid id)
+        {
+            return await _context.DeliveryDrivers.FirstOrDefaultAsync(dd => dd.Guid == id);
         }
     }
 }

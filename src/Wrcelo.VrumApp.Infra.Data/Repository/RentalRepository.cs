@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wrcelo.VrumApp.Core.DTO;
 using Wrcelo.VrumApp.Domain.Entity;
 using Wrcelo.VrumApp.Domain.Repository;
 using Wrcelo.VrumApp.Infra.Data.Context;
@@ -18,9 +19,13 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Rental> GetRental(Guid rentalGuid)
+        public async Task<Rental> GetRentalById(Guid rentalGuid)
         {
-            throw new NotImplementedException();
+            var rental = await _context.Rentals.FirstOrDefaultAsync(r => r.Guid == rentalGuid);
+            if (rental is null)
+                throw new Exception("Locação não encontrada");
+
+            return rental;
         }
 
         public async Task<bool> IsDriverLicenseTypeA(Guid deliveryDriverGuid)
@@ -37,8 +42,20 @@ namespace Wrcelo.VrumApp.Infra.Data.Repository
 
         public async Task<bool> IsMotorcycleAvailable(Guid motorcycleGuid, DateTime startDate, DateTime endDate)
         {
-            var rental = _context.Rentals.Where(r => motorcycleGuid ==  r.MotorcycleGuid && startDate >= r.StartDate || endDate >= r.ExpectedEndDate);
+            var rental = _context.Rentals.Where(r => motorcycleGuid == r.MotorcycleGuid && startDate >= r.StartDate || endDate >= r.ExpectedEndDate);
             return !rental.Any();
+        }
+
+        public async Task<IEnumerable<Rental>> GetAllRentals()
+        {
+            return await _context.Rentals.ToListAsync();
+        }
+
+        public async Task UpdateRental(Rental rental)
+        {
+
+            _context.Update(rental);
+            await _context.SaveChangesAsync();
         }
     }
 }

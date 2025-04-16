@@ -8,5 +8,6 @@ namespace Wrcelo.VrumApp.Domain.Service
         Task CreateDeliveryDriver(DeliveryDriverDTO deliveryDriverDTO);
         Task UpdateLicenseImage(Guid deliveryDriverId, string licenseImageBase64);
         Task<IEnumerable<DeliveryDriver>> GetAllDeliveryDrivers();
+        Task<DeliveryDriver> GetDeliveryDriverById(Guid id);
     }
 }

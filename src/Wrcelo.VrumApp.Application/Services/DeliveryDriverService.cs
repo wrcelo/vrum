@@ -11,7 +11,7 @@ namespace Wrcelo.VrumApp.Application.Services
         private readonly IDeliveryDriverRepository _deliveryDriverRepository;
         private readonly IUserRepository _userRepository;
 
-        public DeliveryDriverService(IDeliveryDriverRepository deliveryDriverRepository, IUserRepository userRepository)
+    public DeliveryDriverService(IDeliveryDriverRepository deliveryDriverRepository, IUserRepository userRepository)
         {
             _deliveryDriverRepository = deliveryDriverRepository;
             _userRepository = userRepository;
@@ -48,14 +48,24 @@ namespace Wrcelo.VrumApp.Application.Services
             }
         }
 
-        public Task UpdateLicenseImage(Guid deliveryDriverId, string licenseImageBase64)
+        public async Task UpdateLicenseImage(Guid deliveryDriverId, string licenseImageBase64)
         {
-            throw new NotImplementedException();
+            var deliveryDriver = await _deliveryDriverRepository.GetDeliveryDriverById(deliveryDriverId);
+            if (deliveryDriver is null)
+                throw new Exception($"Entregador não encontrado com id {deliveryDriverId}");
+
+            await _deliveryDriverRepository.UpdateDriverLicenseImage(licenseImageBase64);
+
         }
 
         public async Task<IEnumerable<DeliveryDriver>> GetAllDeliveryDrivers()
         {
             return await _deliveryDriverRepository.GetAllDeliveryDrivers();
+        }
+
+        public async Task<DeliveryDriver> GetDeliveryDriverById(Guid id)
+        {
+            return await _deliveryDriverRepository.GetDeliveryDriverById(id);
         }
     }
 }

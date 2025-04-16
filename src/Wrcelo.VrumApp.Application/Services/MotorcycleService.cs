@@ -70,12 +70,12 @@ namespace Wrcelo.VrumApp.Application.Services
             {
                 if (string.IsNullOrWhiteSpace(editMotorcycleDTO.LicensePlate))
                 {
-                    throw new Exception("License plate cannot be empty.");
+                    throw new Exception("Placa não pode ser vazio.");
                 }
 
                 if (!LicensePlateValidator.IsValid(editMotorcycleDTO.LicensePlate))
                 {
-                    throw new Exception("License plate format is invalid.");
+                    throw new Exception("Placa em formato inválido.");
                 }
 
                 await _motorcycleRepository.EditMotorcycleLicensePlate(id, editMotorcycleDTO);

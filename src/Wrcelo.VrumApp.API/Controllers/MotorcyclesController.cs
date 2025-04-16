@@ -7,7 +7,7 @@ namespace Wrcelo.VrumApp.API.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    [Route("api/[controller]")]
+    [Route("api/motorcycles")]
     [ApiController]
     public class MotorcyclesController : ControllerBase
     {

@@ -20,9 +20,14 @@ namespace Wrcelo.VrumApp.Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteMotorcycle(Guid guid)
+        public async Task DeleteMotorcycle(Guid guid)
         {
-            throw new NotImplementedException();
+            var motorcycle = await _context.Motorcycles.FirstOrDefaultAsync(x => x.Guid == guid);
+            if(motorcycle is null){
+                throw new Exception("Moto não foi encontrada para fazer exclusão.");
+            }
+            _context.Motorcycles.Remove(motorcycle);
+            await _context.SaveChangesAsync();
         }
 
         public async Task EditMotorcycleLicensePlate(Guid id, EditMotorcycleDTO editMotorcycleDTO)

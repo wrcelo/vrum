@@ -20,11 +20,12 @@ namespace Wrcelo.VrumApp.Application.Services
         {
             var rental = Rental.Create(rentalDto);
 
-            if (rental.IsFailure){
+            if (rental.IsFailure)
+            {
                 throw new Exception(JsonSerializer.Serialize(rental.Errors));
             }
 
-            if(!await _rentalRepository.IsDriverLicenseTypeA(rentalDto.DeliveryDriverGuid))
+            if (!await _rentalRepository.IsDriverLicenseTypeA(rentalDto.DeliveryDriverGuid))
             {
                 throw new Exception("Não é possível alugar uma moto pois o entregador não possui carteira categoria A cadastrada.");
             }
@@ -32,14 +33,32 @@ namespace Wrcelo.VrumApp.Application.Services
             if (!await _rentalRepository.IsMotorcycleAvailable(rentalDto.MotorcycleGuid, rentalDto.StartDate, rentalDto.EndDate))
                 throw new Exception("Essa moto já está em uso em outra locação");
 
-
             await _rentalRepository.CreateRental(rental.Value);
 
         }
 
-        public Task<Rental> GetRental(Guid rentalGuid)
+        public async Task<Rental> GetRentalById(Guid rentalGuid)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(rentalGuid.ToString()))
+                throw new Exception("Passe o ID para fazer a busca da locação");
+
+            return await _rentalRepository.GetRentalById(rentalGuid);
+        }
+
+        public async Task<IEnumerable<Rental>> GetAllRentals()
+        {
+            return await _rentalRepository.GetAllRentals();
+        }
+
+        public async Task RentalUpdateEndDate(UpdateEndDateDTO updateEndDateDto, Guid id)
+        {
+            Rental rental = await _rentalRepository.GetRentalById(id);
+            if (rental is null)
+                throw new Exception("Locação não entrada.");
+
+            rental.EndRental(updateEndDateDto.DevolutionDate);
+
+            await _rentalRepository.UpdateRental(rental);
         }
     }
 }
